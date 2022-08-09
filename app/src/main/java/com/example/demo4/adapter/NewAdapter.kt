@@ -1,4 +1,4 @@
-package com.example.demo4
+package com.example.demo4.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.bumptech.glide.Glide
+import com.example.demo4.R
+import com.example.demo4.model.Article
 
 
 class NewAdapter (val context: Context,val articles:List<Article>): Adapter<NewAdapter.ArticleViewHolder>(){
@@ -24,7 +26,7 @@ class NewAdapter (val context: Context,val articles:List<Article>): Adapter<NewA
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        val article:Article = articles[position]
+        val article: Article = articles[position]
         holder.newsTitle.text=article.title
         holder.newsDescritption.text=article.description
         Glide.with(context).load(article.urlToImage).into(holder.newsImage)
