@@ -1,38 +1,48 @@
 package com.example.demo4.adapter
 
-import android.content.Context
+import android.app.Activity
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.bumptech.glide.Glide
-import com.example.demo4.R
-import com.example.demo4.model.Article
+import com.example.demo4.databinding.ItemLayoutBinding
+import com.example.demo4.data.model.Article
+import com.example.demo4.data.model.News
 
 
-class NewAdapter (val context: Context,val articles:List<Article>): Adapter<NewAdapter.ArticleViewHolder>(){
-    class ArticleViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        var newsImage = itemView.findViewById<ImageView>(R.id.newsImage)
-        var newsTitle=itemView.findViewById<TextView>(R.id.newTitle)
-        var newsDescritption=itemView.findViewById<TextView>(R.id.newDescription)
+class NewAdapter(private val activity: Activity) : Adapter<NewAdapter.ArticleViewHolder>(){
+    var newsList: List<News>?=null
+
+    fun setNews(newsList: List<News>){
+        this.newsList=newsList
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_layout,parent,false)
-        return ArticleViewHolder(view)
+    override fun onCreateViewHolder(
+        parent: ViewGroup, viewType: Int
+    ): ArticleViewHolder {
+        val binding=ItemLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+         return ArticleViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        val article: Article = articles[position]
-        holder.newsTitle.text=article.title
-        holder.newsDescritption.text=article.description
-        Glide.with(context).load(article.urlToImage).into(holder.newsImage)
+        newsList?.let {
+            it[position]?.let {
+                holder.bind(it, activity) } }
     }
 
     override fun getItemCount(): Int {
-        return  articles.size
+        return newsList?.let { it.size }?:0
     }
+    class ArticleViewHolder(val binding: ItemLayoutBinding): RecyclerView.ViewHolder(binding.root){
+        fun bind(data: News, activity: Activity){
+            val article:Article=data.articles[position]
+            binding.newTitle.text= article.title
+            binding.newDescription.text=article.description
+            Glide.with(binding.newsImage)
+                .load(article.urlToImage)
+                .into(binding.newsImage)
+        }
+    }
+
 }

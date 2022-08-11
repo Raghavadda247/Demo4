@@ -1,5 +1,3 @@
-package com.example.demo4.model
-
-import java.io.FileDescriptor
+package com.example.demo4.data.model
 
 data class Article(val author:String, val title:String,val description:String,val url:String,val urlToImage:String)
