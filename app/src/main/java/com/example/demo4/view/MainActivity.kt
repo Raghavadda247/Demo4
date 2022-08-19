@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.getObserver().observe(this, Observer {
             it?.let {
                 with(adapter) {
-                    setNews(listOf(it))
+                    setNews(it)
                     notifyDataSetChanged()
                 }
             }

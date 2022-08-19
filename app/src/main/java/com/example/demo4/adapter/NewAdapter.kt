@@ -12,9 +12,9 @@ import com.example.demo4.data.model.News
 
 
 class NewAdapter(private val activity: Activity) : Adapter<NewAdapter.ArticleViewHolder>(){
-    var newsList: List<News>?=null
+    var newsList: List<Article>?=null
 
-    fun setNews(newsList: List<News>){
+    fun setNews(newsList: List<Article>){
         this.newsList=newsList
     }
 
@@ -35,8 +35,8 @@ class NewAdapter(private val activity: Activity) : Adapter<NewAdapter.ArticleVie
         return newsList?.let { it.size }?:0
     }
     class ArticleViewHolder(val binding: ItemLayoutBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(data: News, activity: Activity){
-            val article:Article=data.articles[position]
+        fun bind(data: Article, activity: Activity){
+            val article:Article=data
             binding.newTitle.text= article.title
             binding.newDescription.text=article.description
             Glide.with(binding.newsImage)

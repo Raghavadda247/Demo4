@@ -1,5 +1,6 @@
 package com.example.demo4
 
+import com.example.demo4.data.model.Article
 import com.example.demo4.data.model.News
 import retrofit2.Call
 import retrofit2.http.GET
